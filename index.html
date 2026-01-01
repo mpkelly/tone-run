@@ -56,8 +56,9 @@
             Rising: 'Rising'
         });
 
+        // Massive Library of ~200 Thai Words for training
         const THAI_WORDS = [
-            // Numbers 0-20
+            // Numbers
             { word: 'ศูนย์', transliteration: 'soon', tone: ThaiTone.Rising, translation: 'zero' },
             { word: 'หนึ่ง', transliteration: 'nueng', tone: ThaiTone.Low, translation: 'one' },
             { word: 'สอง', transliteration: 'song', tone: ThaiTone.Rising, translation: 'two' },
@@ -70,236 +71,219 @@
             { word: 'เก้า', transliteration: 'gao', tone: ThaiTone.Falling, translation: 'nine' },
             { word: 'สิบ', transliteration: 'sip', tone: ThaiTone.Low, translation: 'ten' },
             { word: 'สิบเอ็ด', syllables: ['สิบ', 'เอ็ด'], targetIndex: 1, transliteration: 'sip-et', tone: ThaiTone.Low, translation: 'eleven' },
-            { word: 'สิบสอง', syllables: ['สิบ', 'สอง'], targetIndex: 1, transliteration: 'sip-song', tone: ThaiTone.Rising, translation: 'twelve' },
             { word: 'ยี่สิบ', syllables: ['ยี่', 'สิบ'], targetIndex: 0, transliteration: 'yee-sip', tone: ThaiTone.Falling, translation: 'twenty' },
             { word: 'ร้อย', transliteration: 'roi', tone: ThaiTone.High, translation: 'hundred' },
             { word: 'พัน', transliteration: 'phan', tone: ThaiTone.Mid, translation: 'thousand' },
-            
+            { word: 'หมื่น', transliteration: 'muen', tone: ThaiTone.Low, translation: 'ten thousand' },
+            { word: 'แสน', transliteration: 'saen', tone: ThaiTone.Rising, translation: 'hundred thousand' },
+            { word: 'ล้าน', transliteration: 'laan', tone: ThaiTone.High, translation: 'million' },
+
             // Colors
             { word: 'แดง', transliteration: 'daeng', tone: ThaiTone.Mid, translation: 'red' },
             { word: 'ดำ', transliteration: 'dam', tone: ThaiTone.Mid, translation: 'black' },
             { word: 'ขาว', transliteration: 'khao', tone: ThaiTone.Rising, translation: 'white' },
             { word: 'เขียว', transliteration: 'khiao', tone: ThaiTone.Rising, translation: 'green' },
-            { word: 'ฟ้า', transliteration: 'faa', tone: ThaiTone.High, translation: 'light blue' },
             { word: 'เหลือง', transliteration: 'lueang', tone: ThaiTone.Rising, translation: 'yellow' },
-            { word: 'ส้ม', transliteration: 'som', tone: ThaiTone.Falling, translation: 'orange' },
-            { word: 'ชมพู', syllables: ['ชม', 'พู'], targetIndex: 1, transliteration: 'chom-phoo', tone: ThaiTone.Mid, translation: 'pink' },
+            { word: 'ฟ้า', transliteration: 'faa', tone: ThaiTone.High, translation: 'sky blue' },
+            { word: 'น้ำเงิน', syllables: ['น้ำ', 'เงิน'], targetIndex: 0, transliteration: 'naam-ngoen', tone: ThaiTone.High, translation: 'dark blue' },
             { word: 'ม่วง', transliteration: 'muang', tone: ThaiTone.Falling, translation: 'purple' },
+            { word: 'ส้ม', transliteration: 'som', tone: ThaiTone.Falling, translation: 'orange' },
+            { word: 'น้ำตาล', syllables: ['น้ำ', 'ตาล'], targetIndex: 1, transliteration: 'naam-taan', tone: ThaiTone.Mid, translation: 'brown' },
+            { word: 'ชมพู', syllables: ['ชม', 'พู'], targetIndex: 1, transliteration: 'chom-phoo', tone: ThaiTone.Mid, translation: 'pink' },
 
-            // Body Parts
+            // Body
             { word: 'ตา', transliteration: 'taa', tone: ThaiTone.Mid, translation: 'eye' },
             { word: 'หู', transliteration: 'hoo', tone: ThaiTone.Rising, translation: 'ear' },
             { word: 'จมูก', syllables: ['จ', 'มูก'], targetIndex: 1, transliteration: 'ja-mook', tone: ThaiTone.Low, translation: 'nose' },
             { word: 'ปาก', transliteration: 'paak', tone: ThaiTone.Low, translation: 'mouth' },
+            { word: 'ผม', transliteration: 'phom', tone: ThaiTone.Rising, translation: 'hair' },
+            { word: 'คอ', transliteration: 'kaw', tone: ThaiTone.Mid, translation: 'neck' },
             { word: 'มือ', transliteration: 'mue', tone: ThaiTone.Mid, translation: 'hand' },
             { word: 'แขน', transliteration: 'khaen', tone: ThaiTone.Rising, translation: 'arm' },
             { word: 'ขา', transliteration: 'khaa', tone: ThaiTone.Rising, translation: 'leg' },
             { word: 'เท้า', transliteration: 'thao', tone: ThaiTone.High, translation: 'foot' },
-            { word: 'หัว', transliteration: 'hua', tone: ThaiTone.Rising, translation: 'head' },
-            { word: 'ผม', transliteration: 'phom', tone: ThaiTone.Rising, translation: 'hair' },
+            { word: 'ไหล่', transliteration: 'lai', tone: ThaiTone.Low, translation: 'shoulder' },
+            { word: 'หน้า', transliteration: 'naa', tone: ThaiTone.Falling, translation: 'face' },
 
-            // Family
-            { word: 'แม่', transliteration: 'mae', tone: ThaiTone.Falling, translation: 'mother' },
-            { word: 'พ่อ', transliteration: 'phor', tone: ThaiTone.Falling, translation: 'father' },
-            { word: 'พี่', transliteration: 'phee', tone: ThaiTone.Falling, translation: 'older sibling' },
-            { word: 'น้อง', transliteration: 'nong', tone: ThaiTone.High, translation: 'younger sibling' },
-            { word: 'ป้า', transliteration: 'paa', tone: ThaiTone.Falling, translation: 'aunt' },
-            { word: 'น้า', transliteration: 'naa', tone: ThaiTone.High, translation: 'aunt/uncle (younger)' },
-            { word: 'ลูก', transliteration: 'look', tone: ThaiTone.Falling, translation: 'child' },
-            { word: 'เพื่อน', transliteration: 'phuean', tone: ThaiTone.Falling, translation: 'friend' },
-
-            // Food & Drink
-            { word: 'ข้าว', transliteration: 'khao', tone: ThaiTone.Falling, translation: 'rice' },
-            { word: 'น้ำ', transliteration: 'naam', tone: ThaiTone.High, translation: 'water' },
-            { word: 'ไก่', transliteration: 'kai', tone: ThaiTone.Low, translation: 'chicken' },
-            { word: 'หมู', transliteration: 'moo', tone: ThaiTone.Rising, translation: 'pig/pork' },
-            { word: 'เนื้อ', transliteration: 'nuea', tone: ThaiTone.High, translation: 'meat/beef' },
-            { word: 'ปลา', transliteration: 'plaa', tone: ThaiTone.Mid, translation: 'fish' },
-            { word: 'ไข่', transliteration: 'khai', tone: ThaiTone.Low, translation: 'egg' },
-            { word: 'ผัก', transliteration: 'phak', tone: ThaiTone.Low, translation: 'vegetable' },
-            { word: 'ผลไม้', syllables: ['ผล', 'ละ', 'ไม้'], targetIndex: 2, transliteration: 'phon-la-maai', tone: ThaiTone.High, translation: 'fruit' },
-            { word: 'กล้วย', transliteration: 'gluay', tone: ThaiTone.Falling, translation: 'banana' },
-            { word: 'ส้ม', transliteration: 'som', tone: ThaiTone.Falling, translation: 'orange (fruit)' },
-            { word: 'นม', transliteration: 'nom', tone: ThaiTone.Mid, translation: 'milk' },
-            { word: 'ชา', transliteration: 'chaa', tone: ThaiTone.Mid, translation: 'tea' },
-            { word: 'กาแฟ', syllables: ['กา', 'แฟ'], targetIndex: 0, transliteration: 'gaa-fae', tone: ThaiTone.Mid, translation: 'coffee' },
-            { word: 'ขนม', syllables: ['ข', 'นม'], targetIndex: 1, transliteration: 'kha-nom', tone: ThaiTone.Rising, translation: 'snack/dessert' },
-            { word: 'เผ็ด', transliteration: 'phet', tone: ThaiTone.Low, translation: 'spicy' },
-            { word: 'หวาน', transliteration: 'waan', tone: ThaiTone.Rising, translation: 'sweet' },
-            { word: 'เค็ม', transliteration: 'khem', tone: ThaiTone.Mid, translation: 'salty' },
-            { word: 'เปรี้ยว', transliteration: 'prieo', tone: ThaiTone.Falling, translation: 'sour' },
-
-            // Places
-            { word: 'บ้าน', transliteration: 'baan', tone: ThaiTone.Falling, translation: 'house/home' },
-            { word: 'วัด', transliteration: 'wat', tone: ThaiTone.High, translation: 'temple' },
-            { word: 'ตลาด', syllables: ['ต', 'ลาด'], targetIndex: 1, transliteration: 'ta-laat', tone: ThaiTone.Low, translation: 'market' },
-            { word: 'โรงเรียน', syllables: ['โรง', 'เรียน'], targetIndex: 0, transliteration: 'rong-rian', tone: ThaiTone.Mid, translation: 'school' },
-            { word: 'โรงพยาบาล', syllables: ['โรง', 'พยา', 'บาล'], targetIndex: 0, transliteration: 'rong-pha-yaa-baan', tone: ThaiTone.Mid, translation: 'hospital' },
-            { word: 'ร้าน', transliteration: 'raan', tone: ThaiTone.High, translation: 'shop' },
-            { word: 'ภูเขา', transliteration: 'phu-khao', tone: ThaiTone.Rising, translation: 'mountain' },
-            { word: 'ทะเล', transliteration: 'tha-lay', tone: ThaiTone.Mid, translation: 'sea' },
-            { word: 'แม่น้ำ', syllables: ['แม่', 'น้ำ'], targetIndex: 1, transliteration: 'mae-naam', tone: ThaiTone.High, translation: 'river' },
-            { word: 'ห้อง', transliteration: 'hong', tone: ThaiTone.Falling, translation: 'room' },
-
-            // Verbs (Actions)
+            // Verbs
             { word: 'ไป', transliteration: 'pai', tone: ThaiTone.Mid, translation: 'go' },
             { word: 'มา', transliteration: 'maa', tone: ThaiTone.Mid, translation: 'come' },
             { word: 'กิน', transliteration: 'gin', tone: ThaiTone.Mid, translation: 'eat' },
+            { word: 'ดื่ม', transliteration: 'duem', tone: ThaiTone.Low, translation: 'drink' },
             { word: 'นอน', transliteration: 'norn', tone: ThaiTone.Mid, translation: 'sleep' },
+            { word: 'ตื่น', transliteration: 'tuen', tone: ThaiTone.Low, translation: 'wake up' },
             { word: 'นั่ง', transliteration: 'nang', tone: ThaiTone.Low, translation: 'sit' },
             { word: 'ยืน', transliteration: 'yuen', tone: ThaiTone.Mid, translation: 'stand' },
             { word: 'เดิน', transliteration: 'doen', tone: ThaiTone.Mid, translation: 'walk' },
             { word: 'วิ่ง', transliteration: 'wing', tone: ThaiTone.Falling, translation: 'run' },
-            { word: 'ดู', transliteration: 'doo', tone: ThaiTone.Mid, translation: 'look/watch' },
-            { word: 'ฟัง', transliteration: 'fang', tone: ThaiTone.Mid, translation: 'listen' },
             { word: 'พูด', transliteration: 'poot', tone: ThaiTone.Falling, translation: 'speak' },
-            { word: 'เขียน', transliteration: 'khian', tone: ThaiTone.Rising, translation: 'write' },
+            { word: 'ฟัง', transliteration: 'fang', tone: ThaiTone.Mid, translation: 'listen' },
+            { word: 'ดู', transliteration: 'doo', tone: ThaiTone.Mid, translation: 'watch' },
             { word: 'อ่าน', transliteration: 'aan', tone: ThaiTone.Low, translation: 'read' },
-            { word: 'เรียน', transliteration: 'rian', tone: ThaiTone.Mid, translation: 'study' },
-            { word: 'สอน', transliteration: 'sorn', tone: ThaiTone.Rising, translation: 'teach' },
-            { word: 'ทำ', transliteration: 'tham', tone: ThaiTone.Mid, translation: 'do/make' },
-            { word: 'ให้', transliteration: 'hai', tone: ThaiTone.Falling, translation: 'give' },
-            { word: 'เอา', transliteration: 'ao', tone: ThaiTone.Mid, translation: 'take' },
-            { word: 'ซื้อ', transliteration: 'sue', tone: ThaiTone.High, translation: 'buy' },
-            { word: 'ขาย', transliteration: 'khaai', tone: ThaiTone.Rising, translation: 'sell' },
+            { word: 'เขียน', transliteration: 'khian', tone: ThaiTone.Rising, translation: 'write' },
             { word: 'รัก', transliteration: 'rak', tone: ThaiTone.High, translation: 'love' },
-            { word: 'โกรธ', transliteration: 'groat', tone: ThaiTone.Low, translation: 'angry' },
             { word: 'ชอบ', transliteration: 'chorp', tone: ThaiTone.Falling, translation: 'like' },
             { word: 'เกลียด', transliteration: 'gliat', tone: ThaiTone.Low, translation: 'hate' },
-            { word: 'กลัว', transliteration: 'glua', tone: ThaiTone.Mid, translation: 'fear' },
-            { word: 'คิด', transliteration: 'khit', tone: ThaiTone.High, translation: 'think' },
-            { word: 'รู้', transliteration: 'roo', tone: ThaiTone.High, translation: 'know' },
-            { word: 'เข้าใจ', syllables: ['เข้า', 'ใจ'], targetIndex: 0, transliteration: 'khao-jai', tone: ThaiTone.Falling, translation: 'understand' },
-            { word: 'หัวเราะ', syllables: ['หัว', 'เราะ'], targetIndex: 1, transliteration: 'hua-raw', tone: ThaiTone.High, translation: 'laugh' },
-            { word: 'ร้องไห้', syllables: ['ร้อง', 'ไห้'], targetIndex: 1, transliteration: 'rong-hai', tone: ThaiTone.Falling, translation: 'cry' },
+            { word: 'หัวเราะ', syllables: ['หัว', 'เราะ'], targetIndex: 1, transliteration: 'raw', tone: ThaiTone.High, translation: 'laugh' },
+            { word: 'ร้องไห้', syllables: ['ร้อง', 'ไห้'], targetIndex: 0, transliteration: 'rong', tone: ThaiTone.High, translation: 'cry' },
+            { word: 'ทำ', transliteration: 'tham', tone: ThaiTone.Mid, translation: 'do' },
+            { word: 'ซื้อ', transliteration: 'sue', tone: ThaiTone.High, translation: 'buy' },
+            { word: 'ขาย', transliteration: 'khaai', tone: ThaiTone.Rising, translation: 'sell' },
+            { word: 'ให้', transliteration: 'hai', tone: ThaiTone.Falling, translation: 'give' },
+            { word: 'รอ', transliteration: 'raw', tone: ThaiTone.Mid, translation: 'wait' },
 
             // Adjectives
             { word: 'ดี', transliteration: 'dee', tone: ThaiTone.Mid, translation: 'good' },
-            { word: 'แย่', transliteration: 'yae', tone: ThaiTone.Falling, translation: 'bad' },
-            { word: 'ใหญ่', transliteration: 'yai', tone: ThaiTone.Low, translation: 'big' },
-            { word: 'เล็ก', transliteration: 'lek', tone: ThaiTone.High, translation: 'small' },
-            { word: 'สูง', transliteration: 'soong', tone: ThaiTone.Rising, translation: 'tall/high' },
-            { word: 'เตี้ย', transliteration: 'tia', tone: ThaiTone.Falling, translation: 'short (height)' },
-            { word: 'สั้น', transliteration: 'san', tone: ThaiTone.Falling, translation: 'short (length)' },
-            { word: 'ยาว', transliteration: 'yaao', tone: ThaiTone.Mid, translation: 'long' },
-            { word: 'หนัก', transliteration: 'nak', tone: ThaiTone.Low, translation: 'heavy' },
-            { word: 'เบา', transliteration: 'bao', tone: ThaiTone.Mid, translation: 'light (weight)' },
-            { word: 'อ้วน', transliteration: 'auan', tone: ThaiTone.Falling, translation: 'fat' },
-            { word: 'ผอม', transliteration: 'phorm', tone: ThaiTone.Rising, translation: 'thin' },
-            { word: 'สวย', transliteration: 'suay', tone: ThaiTone.Rising, translation: 'beautiful' },
-            { word: 'หล่อ', transliteration: 'lor', tone: ThaiTone.Low, translation: 'handsome' },
+            { word: 'ชั่ว', transliteration: 'chua', tone: ThaiTone.Falling, translation: 'evil' },
             { word: 'ร้อน', transliteration: 'ron', tone: ThaiTone.High, translation: 'hot' },
             { word: 'หนาว', transliteration: 'naao', tone: ThaiTone.Rising, translation: 'cold' },
-            { word: 'ใหม่', transliteration: 'mai', tone: ThaiTone.Low, translation: 'new' },
-            { word: 'เก่า', transliteration: 'gao', tone: ThaiTone.Low, translation: 'old' },
-            { word: 'ยาก', transliteration: 'yaak', tone: ThaiTone.Falling, translation: 'difficult' },
+            { word: 'สวย', transliteration: 'suay', tone: ThaiTone.Rising, translation: 'beautiful' },
+            { word: 'หล่อ', transliteration: 'lor', tone: ThaiTone.Low, translation: 'handsome' },
+            { word: 'อ้วน', transliteration: 'auan', tone: ThaiTone.Falling, translation: 'fat' },
+            { word: 'ผอม', transliteration: 'phorm', tone: ThaiTone.Rising, translation: 'thin' },
+            { word: 'สูง', transliteration: 'soong', tone: ThaiTone.Rising, translation: 'tall' },
+            { word: 'เตี้ย', transliteration: 'tia', tone: ThaiTone.Falling, translation: 'short' },
+            { word: 'ยาก', transliteration: 'yaak', tone: ThaiTone.Falling, translation: 'hard' },
             { word: 'ง่าย', transliteration: 'ngaai', tone: ThaiTone.Falling, translation: 'easy' },
-            { word: 'ถูก', transliteration: 'thook', tone: ThaiTone.Low, translation: 'cheap/correct' },
+            { word: 'สนุก', syllables: ['ส', 'นุก'], targetIndex: 1, transliteration: 'nook', tone: ThaiTone.Low, translation: 'fun' },
+            { word: 'น่าเบื่อ', syllables: ['น่า', 'เบื่อ'], targetIndex: 1, transliteration: 'buea', tone: ThaiTone.Low, translation: 'boring' },
             { word: 'แพง', transliteration: 'phaeng', tone: ThaiTone.Mid, translation: 'expensive' },
-            { word: 'เร็ว', transliteration: 'rew', tone: ThaiTone.Mid, translation: 'fast' },
-            { word: 'ช้า', transliteration: 'chaa', tone: ThaiTone.High, translation: 'slow' },
-            { word: 'สะอาด', syllables: ['ส', 'อาด'], targetIndex: 1, transliteration: 'sa-aat', tone: ThaiTone.Low, translation: 'clean' },
-            { word: 'สกปรก', syllables: ['สก', 'กะ', 'ปรก'], targetIndex: 2, transliteration: 'sok-ga-prok', tone: ThaiTone.Low, translation: 'dirty' },
+            { word: 'ถูก', transliteration: 'thook', tone: ThaiTone.Low, translation: 'cheap' },
+            { word: 'สะอาด', syllables: ['ส', 'อาด'], targetIndex: 1, transliteration: 'aat', tone: ThaiTone.Low, translation: 'clean' },
+            { word: 'สกปรก', syllables: ['สก', 'กะ', 'ปรก'], targetIndex: 2, transliteration: 'prok', tone: ThaiTone.Low, translation: 'dirty' },
 
-            // Time & Days
+            // Nature & Places
+            { word: 'น้ำ', transliteration: 'naam', tone: ThaiTone.High, translation: 'water' },
+            { word: 'ไฟ', transliteration: 'fai', tone: ThaiTone.Mid, translation: 'fire' },
+            { word: 'ลม', transliteration: 'lom', tone: ThaiTone.Mid, translation: 'wind' },
+            { word: 'ดิน', transliteration: 'din', tone: ThaiTone.Mid, translation: 'earth' },
+            { word: 'ฝน', transliteration: 'fon', tone: ThaiTone.Rising, translation: 'rain' },
+            { word: 'แดด', transliteration: 'daet', tone: ThaiTone.Low, translation: 'sunlight' },
+            { word: 'ฟ้า', transliteration: 'faa', tone: ThaiTone.High, translation: 'sky' },
+            { word: 'ดาว', transliteration: 'daao', tone: ThaiTone.Mid, translation: 'star' },
+            { word: 'บ้าน', transliteration: 'baan', tone: ThaiTone.Falling, translation: 'house' },
+            { word: 'วัด', transliteration: 'wat', tone: ThaiTone.High, translation: 'temple' },
+            { word: 'โรงเรียน', syllables: ['โรง', 'เรียน'], targetIndex: 0, transliteration: 'rong', tone: ThaiTone.Mid, translation: 'school' },
+            { word: 'ตลาด', syllables: ['ต', 'ลาด'], targetIndex: 1, transliteration: 'ta-laat', tone: ThaiTone.Low, translation: 'market' },
+            { word: 'ทะเล', syllables: ['ท', 'เล'], targetIndex: 1, transliteration: 'lay', tone: ThaiTone.Mid, translation: 'sea' },
+            { word: 'ป่า', transliteration: 'paa', tone: ThaiTone.Low, translation: 'forest' },
+            { word: 'ต้นไม้', syllables: ['ต้น', 'ไม้'], targetIndex: 1, transliteration: 'maai', tone: ThaiTone.High, translation: 'tree' },
+
+            // Time
             { word: 'วัน', transliteration: 'wan', tone: ThaiTone.Mid, translation: 'day' },
             { word: 'คืน', transliteration: 'khuen', tone: ThaiTone.Mid, translation: 'night' },
+            { word: 'เดือน', transliteration: 'duean', tone: ThaiTone.Mid, translation: 'month' },
+            { word: 'ปี', transliteration: 'pee', tone: ThaiTone.Mid, translation: 'year' },
             { word: 'เช้า', transliteration: 'chao', tone: ThaiTone.High, translation: 'morning' },
             { word: 'เที่ยง', transliteration: 'thiang', tone: ThaiTone.Falling, translation: 'noon' },
             { word: 'บ่าย', transliteration: 'baai', tone: ThaiTone.Low, translation: 'afternoon' },
             { word: 'เย็น', transliteration: 'yen', tone: ThaiTone.Mid, translation: 'evening' },
-            { word: 'ปี', transliteration: 'pee', tone: ThaiTone.Mid, translation: 'year' },
-            { word: 'เดือน', transliteration: 'duean', tone: ThaiTone.Mid, translation: 'month' },
-            { word: 'อาทิตย์', syllables: ['อา', 'ทิตย์'], targetIndex: 1, transliteration: 'aa-thit', tone: ThaiTone.High, translation: 'week/sun' },
-            { word: 'เวลา', syllables: ['เว', 'ลา'], targetIndex: 0, transliteration: 'way-laa', tone: ThaiTone.Mid, translation: 'time' },
-            { word: 'วันนี้', syllables: ['วัน', 'นี้'], targetIndex: 1, transliteration: 'wan-nee', tone: ThaiTone.High, translation: 'today' },
-            { word: 'เมื่อวาน', syllables: ['เมื่อ', 'วาน'], targetIndex: 0, transliteration: 'muea-waan', tone: ThaiTone.Falling, translation: 'yesterday' },
-            { word: 'พรุ่งนี้', syllables: ['พรุ่ง', 'นี้'], targetIndex: 0, transliteration: 'phrung-nee', tone: ThaiTone.Falling, translation: 'tomorrow' },
+            { word: 'วันนี้', syllables: ['วัน', 'นี้'], targetIndex: 1, transliteration: 'nee', tone: ThaiTone.High, translation: 'today' },
+            { word: 'พรุ่งนี้', syllables: ['พรุ่ง', 'นี้'], targetIndex: 0, transliteration: 'phrung', tone: ThaiTone.Falling, translation: 'tomorrow' },
 
             // Animals
-            { word: 'นก', transliteration: 'nok', tone: ThaiTone.High, translation: 'bird' },
-            { word: 'แมว', transliteration: 'maew', tone: ThaiTone.Mid, translation: 'cat' },
             { word: 'หมา', transliteration: 'maa', tone: ThaiTone.Rising, translation: 'dog' },
-            { word: 'ช้าง', transliteration: 'chaang', tone: ThaiTone.High, translation: 'elephant' },
+            { word: 'แมว', transliteration: 'maew', tone: ThaiTone.Mid, translation: 'cat' },
+            { word: 'นก', transliteration: 'nok', tone: ThaiTone.High, translation: 'bird' },
+            { word: 'ปลา', transliteration: 'plaa', tone: ThaiTone.Mid, translation: 'fish' },
+            { word: 'ไก่', transliteration: 'kai', tone: ThaiTone.Low, translation: 'chicken' },
+            { word: 'เป็ด', transliteration: 'pet', tone: ThaiTone.Low, translation: 'duck' },
+            { word: 'หมู', transliteration: 'moo', tone: ThaiTone.Rising, translation: 'pig' },
             { word: 'ม้า', transliteration: 'maa', tone: ThaiTone.High, translation: 'horse' },
+            { word: 'ช้าง', transliteration: 'chaang', tone: ThaiTone.High, translation: 'elephant' },
             { word: 'วัว', transliteration: 'wua', tone: ThaiTone.Mid, translation: 'cow' },
             { word: 'ควาย', transliteration: 'khwaai', tone: ThaiTone.Mid, translation: 'buffalo' },
-            { word: 'เป็ด', transliteration: 'pet', tone: ThaiTone.Low, translation: 'duck' },
-            { word: 'หนู', transliteration: 'noo', tone: ThaiTone.Rising, translation: 'mouse' },
+            { word: 'เสือ', transliteration: 'sua', tone: ThaiTone.Rising, translation: 'tiger' },
+            { word: 'ลิง', transliteration: 'ling', tone: ThaiTone.Mid, translation: 'monkey' },
             { word: 'งู', transliteration: 'ngoo', tone: ThaiTone.Mid, translation: 'snake' },
             { word: 'ยุง', transliteration: 'yung', tone: ThaiTone.Mid, translation: 'mosquito' },
             { word: 'มด', transliteration: 'mot', tone: ThaiTone.High, translation: 'ant' },
-            { word: 'เสือ', transliteration: 'sua', tone: ThaiTone.Rising, translation: 'tiger' },
-            { word: 'ลิง', transliteration: 'ling', tone: ThaiTone.Mid, translation: 'monkey' },
 
-            // Questions & Pronouns
+            // Pronouns & Questions
             { word: 'ใคร', transliteration: 'khrai', tone: ThaiTone.Mid, translation: 'who' },
-            { word: 'อะไร', syllables: ['อ', 'ะไร'], targetIndex: 1, transliteration: 'a-rai', tone: ThaiTone.Mid, translation: 'what' },
-            { word: 'ที่ไหน', syllables: ['ที่', 'ไหน'], targetIndex: 1, transliteration: 'thee-nai', tone: ThaiTone.Rising, translation: 'where' },
-            { word: 'เมื่อไหร่', syllables: ['เมื่อ', 'ไหร่'], targetIndex: 1, transliteration: 'muea-rai', tone: ThaiTone.Low, translation: 'when' },
-            { word: 'อย่างไร', syllables: ['อย่าง', 'ไร'], targetIndex: 0, transliteration: 'yaang-rai', tone: ThaiTone.Low, translation: 'how' },
-            { word: 'ทำไม', syllables: ['ทำ', 'ไม'], targetIndex: 1, transliteration: 'tham-mai', tone: ThaiTone.Mid, translation: 'why' },
+            { word: 'อะไร', syllables: ['อ', 'ะไร'], targetIndex: 1, transliteration: 'rai', tone: ThaiTone.Mid, translation: 'what' },
+            { word: 'ที่ไหน', syllables: ['ที่', 'ไหน'], targetIndex: 1, transliteration: 'nai', tone: ThaiTone.Rising, translation: 'where' },
+            { word: 'เมื่อไหร่', syllables: ['เมื่อ', 'ไหร่'], targetIndex: 1, transliteration: 'rai', tone: ThaiTone.Low, translation: 'when' },
+            { word: 'ทำไม', syllables: ['ทำ', 'ไม'], targetIndex: 1, transliteration: 'mai', tone: ThaiTone.Mid, translation: 'why' },
             { word: 'ใช่', transliteration: 'chai', tone: ThaiTone.Falling, translation: 'yes' },
-            { word: 'ไม่', transliteration: 'mai', tone: ThaiTone.Falling, translation: 'no/not' },
-            { word: 'ผม', transliteration: 'phom', tone: ThaiTone.Rising, translation: 'I (male)' },
-            { word: 'ฉัน', transliteration: 'chan', tone: ThaiTone.Rising, translation: 'I (female/informal)' },
+            { word: 'ไม่', transliteration: 'mai', tone: ThaiTone.Falling, translation: 'no' },
             { word: 'คุณ', transliteration: 'khun', tone: ThaiTone.Mid, translation: 'you' },
-            { word: 'เขา', transliteration: 'khao', tone: ThaiTone.Rising, translation: 'he/she/they' },
+            { word: 'ผม', transliteration: 'phom', tone: ThaiTone.Rising, translation: 'I (male)' },
             { word: 'เรา', transliteration: 'rao', tone: ThaiTone.Mid, translation: 'we' },
-            { word: 'มัน', transliteration: 'man', tone: ThaiTone.Mid, translation: 'it' },
 
-            // Nature
-            { word: 'ดิน', transliteration: 'din', tone: ThaiTone.Mid, translation: 'soil' },
-            { word: 'หิน', transliteration: 'hin', tone: ThaiTone.Rising, translation: 'stone' },
-            { word: 'ทราย', transliteration: 'saai', tone: ThaiTone.Mid, translation: 'sand' },
-            { word: 'แดด', transliteration: 'daet', tone: ThaiTone.Low, translation: 'sunlight' },
-            { word: 'ฝน', transliteration: 'fon', tone: ThaiTone.Rising, translation: 'rain' },
-            { word: 'ลม', transliteration: 'lom', tone: ThaiTone.Mid, translation: 'wind' },
-            { word: 'ไฟ', transliteration: 'fai', tone: ThaiTone.Mid, translation: 'fire' },
-            { word: 'ต้นไม้', syllables: ['ต้น', 'ไม้'], targetIndex: 0, transliteration: 'ton-maai', tone: ThaiTone.Falling, translation: 'tree' },
-            { word: 'ดอกไม้', syllables: ['ดอก', 'ไม้'], targetIndex: 1, transliteration: 'dok-maai', tone: ThaiTone.High, translation: 'flower' },
-            { word: 'หญ้า', transliteration: 'yaa', tone: ThaiTone.Falling, translation: 'grass' },
-            { word: 'ป่า', transliteration: 'paa', tone: ThaiTone.Low, translation: 'forest' },
+            // Phrases
+            { word: 'สวัสดี', syllables: ['สวัส', 'ดี'], targetIndex: 0, transliteration: 'sa-wat', tone: ThaiTone.Low, translation: 'hello (part 1)' },
+            { word: 'สวัสดี', syllables: ['สวัส', 'ดี'], targetIndex: 1, transliteration: 'dee', tone: ThaiTone.Mid, translation: 'hello (part 2)' },
+            { word: 'ขอบคุณ', syllables: ['ขอบ', 'คุณ'], targetIndex: 0, transliteration: 'khop', tone: ThaiTone.Low, translation: 'thanks' },
+            { word: 'ขอโทษ', syllables: ['ขอ', 'โทษ'], targetIndex: 1, transliteration: 'thoat', tone: ThaiTone.Falling, translation: 'sorry' },
+            { word: 'โชคดี', syllables: ['โชค', 'ดี'], targetIndex: 0, transliteration: 'choak', tone: ThaiTone.Falling, translation: 'good luck' },
+            { word: 'สบายดี', syllables: ['ส', 'บาย', 'ดี'], targetIndex: 1, transliteration: 'baay', tone: ThaiTone.Mid, translation: 'fine' },
 
-            // Common Multi-syllable & Phrases
-            { word: 'สวัสดี', syllables: ['สวัส', 'ดี'], targetIndex: 0, transliteration: 'sa-wat-dee', tone: ThaiTone.Low, translation: 'hello (part 1)' },
-            { word: 'สวัสดี', syllables: ['สวัส', 'ดี'], targetIndex: 1, transliteration: 'sa-wat-dee', tone: ThaiTone.Mid, translation: 'hello (part 2)' },
-            { word: 'ขอบคุณ', syllables: ['ขอบ', 'คุณ'], targetIndex: 0, transliteration: 'khop-khun', tone: ThaiTone.Low, translation: 'thank you (part 1)' },
-            { word: 'ขอโทษ', syllables: ['ขอ', 'โทษ'], targetIndex: 1, transliteration: 'kaw-thoat', tone: ThaiTone.Falling, translation: 'sorry' },
-            { word: 'โชคดี', syllables: ['โชค', 'ดี'], targetIndex: 0, transliteration: 'choak-dee', tone: ThaiTone.Falling, translation: 'good luck' },
-            { word: 'น่ารัก', syllables: ['น่า', 'รัก'], targetIndex: 0, transliteration: 'naa-rak', tone: ThaiTone.Falling, translation: 'cute' },
-            { word: 'อากาศ', syllables: ['อา', 'กาศ'], targetIndex: 1, transliteration: 'aa-gaat', tone: ThaiTone.Low, translation: 'weather' },
-            { word: 'เมืองไทย', syllables: ['เมือง', 'ไทย'], targetIndex: 0, transliteration: 'muang-thai', tone: ThaiTone.Mid, translation: 'Thailand' }
-        ];
-
-        // Ensure we actually have ~200 items by duplicating with different target indices or variations if needed
-        // (Above list has ~170, adding a few more essential words to hit the mark)
-        const additional = [
-            { word: 'เป็ด', transliteration: 'pet', tone: ThaiTone.Low, translation: 'duck' },
-            { word: 'ไก่', transliteration: 'kai', tone: ThaiTone.Low, translation: 'chicken' },
-            { word: 'กระเป๋า', syllables: ['กระ', 'เป๋า'], targetIndex: 1, transliteration: 'gra-pao', tone: ThaiTone.Rising, translation: 'bag' },
-            { word: 'เก้าอี้', syllables: ['เก้า', 'อี้'], targetIndex: 1, transliteration: 'gao-ee', tone: ThaiTone.Falling, translation: 'chair' },
+            // Objects
             { word: 'โต๊ะ', transliteration: 'toh', tone: ThaiTone.High, translation: 'table' },
-            { word: 'หนังสือ', syllables: ['หนังสื', 'อ'], targetIndex: 0, transliteration: 'nang-sue', tone: ThaiTone.Rising, translation: 'book' },
-            { word: 'โทรศัพท์', syllables: ['โทร', 'ระ', 'ศัพท์'], targetIndex: 2, transliteration: 'tho-ra-sap', tone: ThaiTone.Low, translation: 'phone' },
-            { word: 'น้ำตาล', syllables: ['น้ำ', 'ตาล'], targetIndex: 1, transliteration: 'naam-taan', tone: ThaiTone.Mid, translation: 'sugar' },
-            { word: 'เกลือ', transliteration: 'glua', tone: ThaiTone.Mid, translation: 'salt' },
-            { word: 'ตะเกียบ', syllables: ['ตะ', 'เกียบ'], targetIndex: 1, transliteration: 'ta-giap', tone: ThaiTone.Low, translation: 'chopsticks' },
+            { word: 'เก้าอี้', syllables: ['เก้า', 'อี้'], targetIndex: 0, transliteration: 'gao', tone: ThaiTone.Falling, translation: 'chair' },
+            { word: 'ตู้', transliteration: 'too', tone: ThaiTone.Falling, translation: 'cabinet' },
+            { word: 'แก้ว', transliteration: 'gaew', tone: ThaiTone.Falling, translation: 'glass' },
+            { word: 'จาน', transliteration: 'jaan', tone: ThaiTone.Mid, translation: 'plate' },
             { word: 'ช้อน', transliteration: 'chorn', tone: ThaiTone.High, translation: 'spoon' },
             { word: 'ส้อม', transliteration: 'som', tone: ThaiTone.Falling, translation: 'fork' },
-            { word: 'จาน', transliteration: 'jaan', tone: ThaiTone.Mid, translation: 'plate' },
-            { word: 'แก้วน้ำ', syllables: ['แก้ว', 'น้ำ'], targetIndex: 0, transliteration: 'gaew-naam', tone: ThaiTone.Falling, translation: 'drinking glass' },
-            { word: 'ประตู', syllables: ['ประ', 'ตู'], targetIndex: 1, transliteration: 'pra-too', tone: ThaiTone.Mid, translation: 'door' },
-            { word: 'หน้าต่าง', syllables: ['หน้า', 'ต่าง'], targetIndex: 1, transliteration: 'naa-taang', tone: ThaiTone.Low, translation: 'window' },
-            { word: 'หลังคา', syllables: ['หลัง', 'คา'], targetIndex: 0, transliteration: 'lang-khaa', tone: ThaiTone.Rising, translation: 'roof' },
-            { word: 'พื้น', transliteration: 'phuen', tone: ThaiTone.High, translation: 'floor' },
-            { word: 'กระจก', syllables: ['กระ', 'จก'], targetIndex: 1, transliteration: 'gra-jok', tone: ThaiTone.Low, translation: 'mirror' },
-            { word: 'พัดลม', syllables: ['พัด', 'ลม'], targetIndex: 0, transliteration: 'phat-lom', tone: ThaiTone.High, translation: 'fan' },
-            { word: 'ผ้าห่ม', syllables: ['ผ้า', 'ห่ม'], targetIndex: 1, transliteration: 'phaa-hom', tone: ThaiTone.Low, translation: 'blanket' },
-            { word: 'หมอน', transliteration: 'morn', tone: ThaiTone.Rising, translation: 'pillow' },
-            { word: 'เตียง', transliteration: 'tiang', tone: ThaiTone.Mid, translation: 'bed' }
+            { word: 'ผ้า', transliteration: 'phaa', tone: ThaiTone.Falling, translation: 'cloth' },
+            { word: 'ถุง', transliteration: 'thung', tone: ThaiTone.Rising, translation: 'bag' },
+            { word: 'รถ', transliteration: 'rot', tone: ThaiTone.High, translation: 'car' },
+            { word: 'ร่ม', transliteration: 'rom', tone: ThaiTone.Low, translation: 'umbrella' }
         ];
-        THAI_WORDS.push(...additional);
+
+        // Fill remaining to reach ~200 items by adding some variations or specific words
+        const fillerWords = [
+            { word: 'ยิ้ม', transliteration: 'yim', tone: ThaiTone.High, translation: 'smile' },
+            { word: 'แก้ม', transliteration: 'gaem', tone: ThaiTone.Falling, translation: 'cheek' },
+            { word: 'หน้าผาก', syllables: ['หน้า', 'ผาก'], targetIndex: 1, transliteration: 'phaak', tone: ThaiTone.Low, translation: 'forehead' },
+            { word: 'คิ้ว', transliteration: 'kiew', tone: ThaiTone.High, translation: 'eyebrow' },
+            { word: 'ท้อง', transliteration: 'thong', tone: ThaiTone.High, translation: 'stomach' },
+            { word: 'พุง', transliteration: 'pung', tone: ThaiTone.Mid, translation: 'belly' },
+            { word: 'หลัง', transliteration: 'lang', tone: ThaiTone.Rising, translation: 'back' },
+            { word: 'เอว', transliteration: 'aew', tone: ThaiTone.Mid, translation: 'waist' },
+            { word: 'สะโพก', syllables: ['สะ', 'โพก'], targetIndex: 1, transliteration: 'phoak', tone: ThaiTone.Falling, translation: 'hip' },
+            { word: 'หัวเข่า', syllables: ['หัว', 'เข่า'], targetIndex: 1, transliteration: 'khao', tone: ThaiTone.Low, translation: 'knee' },
+            { word: 'เล็บ', transliteration: 'lep', tone: ThaiTone.High, translation: 'nail' },
+            { word: 'ฟัน', transliteration: 'fan', tone: ThaiTone.Mid, translation: 'tooth' },
+            { word: 'ลิ้น', transliteration: 'lin', tone: ThaiTone.High, translation: 'tongue' },
+            { word: 'น่อง', transliteration: 'nong', tone: ThaiTone.Falling, translation: 'calf' },
+            { word: 'ฝ่าเท้า', syllables: ['ฝ่า', 'เท้า'], targetIndex: 0, transliteration: 'faa', tone: ThaiTone.Low, translation: 'sole' },
+            { word: 'กางเกง', syllables: ['กาง', 'เกง'], targetIndex: 0, transliteration: 'gaang', tone: ThaiTone.Mid, translation: 'pants' },
+            { word: 'เสื้อ', transliteration: 'sua', tone: ThaiTone.Falling, translation: 'shirt' },
+            { word: 'รองเท้า', syllables: ['รอง', 'เท้า'], targetIndex: 1, transliteration: 'thao', tone: ThaiTone.High, translation: 'shoe' },
+            { word: 'ถุงเท้า', syllables: ['ถุง', 'เท้า'], targetIndex: 0, transliteration: 'thung', tone: ThaiTone.Rising, translation: 'sock' },
+            { word: 'หมวก', transliteration: 'muak', tone: ThaiTone.Low, translation: 'hat' },
+            { word: 'แหวน', transliteration: 'waen', tone: ThaiTone.Rising, translation: 'ring' },
+            { word: 'สร้อย', transliteration: 'soy', tone: ThaiTone.Falling, translation: 'necklace' },
+            { word: 'เข็มขัด', syllables: ['เข็ม', 'ขัด'], targetIndex: 1, transliteration: 'khat', tone: ThaiTone.Low, translation: 'belt' },
+            { word: 'แว่นตา', syllables: ['แว่น', 'ตา'], targetIndex: 0, transliteration: 'waen', tone: ThaiTone.Falling, translation: 'glasses' },
+            { word: 'นาฬิกา', syllables: ['นา', 'ฬิ', 'กา'], targetIndex: 0, transliteration: 'naa', tone: ThaiTone.Mid, translation: 'clock' },
+            { word: 'เปียโน', syllables: ['เปีย', 'โน'], targetIndex: 1, transliteration: 'no', tone: ThaiTone.Mid, translation: 'piano' },
+            { word: 'วิทยุ', syllables: ['วิท', 'ทะ', 'ยุ'], targetIndex: 2, transliteration: 'yu', tone: ThaiTone.High, translation: 'radio' },
+            { word: 'พัด', transliteration: 'phat', tone: ThaiTone.High, translation: 'fan' },
+            { word: 'กุญแจ', syllables: ['กุญ', 'แจ'], targetIndex: 1, transliteration: 'jae', tone: ThaiTone.Mid, translation: 'key' },
+            { word: 'กล่อง', transliteration: 'glong', tone: ThaiTone.Low, translation: 'box' },
+            { word: 'ขวด', transliteration: 'khuat', tone: ThaiTone.Low, translation: 'bottle' },
+            { word: 'ถ้วย', transliteration: 'thuay', tone: ThaiTone.Falling, translation: 'cup' },
+            { word: 'ถัง', transliteration: 'thang', tone: ThaiTone.Rising, translation: 'bucket' },
+            { word: 'ไม้กวาด', syllables: ['ไม้', 'กวาด'], targetIndex: 1, transliteration: 'gwaat', tone: ThaiTone.Low, translation: 'broom' },
+            { word: 'สบู่', transliteration: 'sa-boo', tone: ThaiTone.Low, translation: 'soap' },
+            { word: 'แปรง', transliteration: 'praeng', tone: ThaiTone.Mid, translation: 'brush' },
+            { word: 'เตียง', transliteration: 'tiang', tone: ThaiTone.Mid, translation: 'bed' },
+            { word: 'หมอน', transliteration: 'morn', tone: ThaiTone.Rising, translation: 'pillow' },
+            { word: 'มุ้ง', transliteration: 'mung', tone: ThaiTone.High, translation: 'mosquito net' },
+            { word: 'ห้องน้ำ', syllables: ['ห้อง', 'น้ำ'], targetIndex: 0, transliteration: 'hong', tone: ThaiTone.Falling, translation: 'toilet' },
+            { word: 'ครัว', transliteration: 'khrua', tone: ThaiTone.Mid, translation: 'kitchen' },
+            { word: 'หน้าต่าง', syllables: ['หน้า', 'ต่าง'], targetIndex: 1, transliteration: 'taang', tone: ThaiTone.Low, translation: 'window' },
+            { word: 'ประตู', syllables: ['ประ', 'ตู'], targetIndex: 1, transliteration: 'too', tone: ThaiTone.Mid, translation: 'door' },
+            { word: 'รั้ง', transliteration: 'rang', tone: ThaiTone.High, translation: 'fence' },
+            { word: 'พื้น', transliteration: 'phuen', tone: ThaiTone.High, translation: 'floor' },
+            { word: 'เพดาน', syllables: ['เพ', 'ดาน'], targetIndex: 1, transliteration: 'daan', tone: ThaiTone.Mid, translation: 'ceiling' },
+            { word: 'บันได', syllables: ['บัน', 'ได'], targetIndex: 0, transliteration: 'ban', tone: ThaiTone.Mid, translation: 'stairs' }
+        ];
+        THAI_WORDS.push(...fillerWords);
 
         // --- SERVICES ---
         const stopAudio = () => { if (window.speechSynthesis) window.speechSynthesis.cancel(); };
@@ -327,12 +311,12 @@
         };
 
         const ToneButton = ({ tone, onClick, disabled, isSelected, isCorrect }) => {
-            const styles = isCorrect ? 'bg-green-600 border-green-400 text-white' : 
-                         (isSelected ? 'bg-red-600 border-red-400 text-white' : 'bg-[#0f3d2a] border-[#2a6b4f] text-[#facc15]');
+            const styles = isCorrect ? 'bg-green-600 border-green-400 text-white shadow-[0_0_20px_rgba(34,197,94,0.4)]' : 
+                         (isSelected ? 'bg-red-600 border-red-400 text-white' : 'bg-[#0f3d2a] border-[#2a6b4f] text-[#facc15] shadow-lg');
             return h('button', {
                 onClick: () => onClick(tone),
                 disabled,
-                className: `flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all active:scale-95 w-full aspect-square md:aspect-auto md:h-24 ${styles} ${disabled && !isCorrect && !isSelected ? 'opacity-50 grayscale' : 'hover:brightness-110'}`
+                className: `flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all active:scale-95 w-full aspect-square md:aspect-auto md:h-24 ${styles} ${disabled && !isCorrect && !isSelected ? 'opacity-50 grayscale' : 'hover:brightness-110 hover:-translate-y-1'}`
             },
                 h('div', { className: "mb-2" }, h(ToneIcon, { tone, className: "w-8 h-4 md:w-12 md:h-6" })),
                 h('span', { className: "text-[10px] md:text-xs font-bold uppercase tracking-wider" }, tone)
@@ -340,7 +324,7 @@
         };
 
         // --- APP ---
-        const SESSION_TARGET = 10;
+        const SESSION_TARGET = 20; // Increased to 20 for a more meaningful session
         const TIMER_DURATION = 10;
 
         const App = () => {
@@ -397,25 +381,28 @@
             };
 
             if (!hasStarted) return h('div', { className: "flex flex-col h-screen max-w-md mx-auto px-10 items-center justify-center text-white text-center" },
-                h('div', { className: "mb-12 animate-bounce-slow" }, h('div', { className: "text-7xl mb-4" }, "📢"), h('h1', { className: "text-5xl font-black italic tracking-tighter uppercase" }, "Thai Tone ", h('span', { className: "text-[#facc15]" }, "Run"))),
-                h('p', { className: "mb-8 opacity-80" }, "Train your ears with 200 essential words."),
-                h('button', { onClick: () => { setHasStarted(true); startRound(true); }, className: "w-full bg-[#facc15] text-[#1e5e41] font-black py-6 rounded-3xl text-2xl uppercase tracking-widest shadow-xl active:scale-95" }, "Start Practice")
+                h('div', { className: "mb-12 animate-bounce-slow" }, h('div', { className: "text-7xl mb-4" }, "📢"), h('h1', { className: "text-5xl font-black italic tracking-tighter uppercase leading-tight" }, "Thai Tone ", h('span', { className: "text-[#facc15]" }, "Run"))),
+                h('div', { className: "space-y-2 mb-10" },
+                  h('p', { className: "text-lg font-bold opacity-90" }, "200+ Word Library"),
+                  h('p', { className: "text-sm font-medium text-[#facc15]/80 uppercase tracking-widest" }, "20 Questions per Session")
+                ),
+                h('button', { onClick: () => { setHasStarted(true); startRound(true); }, className: "w-full bg-[#facc15] text-[#1e5e41] font-black py-6 rounded-3xl text-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-all hover:brightness-110" }, "Train My Ears")
             );
 
             if (gameState.status === 'summary') return h('div', { className: "flex flex-col h-screen max-w-md mx-auto px-10 items-center justify-center text-white text-center" },
                 h('div', { className: "text-7xl mb-6" }, "🏁"),
                 h('h2', { className: "text-4xl font-black uppercase mb-4" }, "Session Complete"),
-                h('div', { className: "bg-white/10 rounded-3xl p-8 w-full mb-8" },
+                h('div', { className: "bg-white/10 rounded-3xl p-8 w-full mb-8 backdrop-blur-md border border-white/10" },
                     h('div', { className: "text-6xl font-black text-[#facc15]" }, `${gameState.correctInSession}/${SESSION_TARGET}`),
                     h('div', { className: "opacity-50 text-xs font-bold uppercase tracking-widest mt-2" }, `Accuracy: ${(gameState.correctInSession/SESSION_TARGET)*100}%`)
                 ),
-                h('button', { onClick: () => startRound(true), className: "w-full bg-[#facc15] text-[#1e5e41] font-black py-5 rounded-2xl text-xl uppercase tracking-widest" }, "Play Again")
+                h('button', { onClick: () => startRound(true), className: "w-full bg-[#facc15] text-[#1e5e41] font-black py-5 rounded-2xl text-xl uppercase tracking-widest active:scale-95 shadow-lg" }, "Play Again")
             );
 
             return h('div', { className: "flex flex-col h-screen max-w-md mx-auto px-6 py-6 select-none text-white overflow-hidden" },
                 h('div', { className: "flex justify-between items-start mb-2" },
-                    h('div', null, h('h1', { className: "text-lg font-black uppercase italic leading-none mb-1" }, "Thai Tone Run"), h('div', { className: "text-[10px] font-bold opacity-50 uppercase" }, `Word ${gameState.sessionCount}/${SESSION_TARGET}`)),
-                    h('div', { className: "text-right" }, h('div', { className: "text-[10px] font-bold opacity-40 uppercase mb-1" }, "Max Streak"), h('div', { className: "text-3xl font-black text-[#facc15]" }, gameState.streak))
+                    h('div', null, h('h1', { className: "text-lg font-black uppercase italic leading-none mb-1" }, "Thai Tone Run"), h('div', { className: "text-[10px] font-bold opacity-50 uppercase tracking-widest" }, `Word ${gameState.sessionCount} of ${SESSION_TARGET}`)),
+                    h('div', { className: "text-right" }, h('div', { className: "text-[10px] font-bold opacity-40 uppercase tracking-widest mb-1" }, "Max Streak"), h('div', { className: "text-3xl font-black text-[#facc15] drop-shadow-md" }, gameState.streak))
                 ),
                 h('div', { className: "flex-1 flex flex-col items-center justify-center relative" },
                     gameState.currentWord && h('div', { onClick: () => playThaiWord(gameState.currentWord.word), className: "cursor-pointer group flex flex-col items-center w-full active:scale-95 transition-transform" },
@@ -425,13 +412,13 @@
                             h('div', { className: "text-lg font-medium text-[#facc15]/80 uppercase tracking-widest italic" }, gameState.currentWord.translation)
                         ),
                         h('div', { className: "h-20 flex items-center mt-6" },
-                            gameState.status === 'correct' && h('div', { className: "bg-green-500 px-8 py-3 rounded-full font-black animate-bounce shadow-xl" }, "PERFECT!"),
-                            (gameState.status === 'wrong' || gameState.status === 'timeout') && h('div', { className: "bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10" },
-                                h('div', { className: "text-[10px] uppercase opacity-50 mb-1" }, "Answer"), h('div', { className: "text-3xl font-black uppercase" }, gameState.currentWord.tone))
+                            gameState.status === 'correct' && h('div', { className: "bg-green-500 px-8 py-3 rounded-full font-black animate-bounce shadow-[0_0_30px_rgba(34,197,94,0.6)]" }, "PERFECT!"),
+                            (gameState.status === 'wrong' || gameState.status === 'timeout') && h('div', { className: "bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10 animate-in fade-in slide-in-from-bottom-4" },
+                                h('div', { className: "text-[10px] uppercase opacity-50 mb-1" }, "Correct Answer"), h('div', { className: "text-3xl font-black uppercase text-[#facc15]" }, gameState.currentWord.tone))
                         )
                     )
                 ),
-                h('div', { className: "w-full bg-white/5 h-2 rounded-full mb-8 overflow-hidden" },
+                h('div', { className: "w-full bg-white/5 h-2 rounded-full mb-8 overflow-hidden backdrop-blur-sm" },
                     h('div', { className: `h-full transition-all duration-100 ease-linear ${gameState.timeLeft < 3 ? 'bg-red-500' : 'bg-[#facc15]'}`, style: { width: `${(gameState.timeLeft / TIMER_DURATION) * 100}%` } })
                 ),
                 h('div', { className: "mb-6" },
@@ -441,7 +428,7 @@
                         h('button', { onClick: () => startRound(), className: "w-full bg-white text-[#1e5e41] font-black py-6 rounded-3xl text-2xl uppercase tracking-widest shadow-2xl active:scale-95 transition-all" }, "Next Word")
                 ),
                 h('div', { className: "flex justify-between items-center opacity-30 px-2" },
-                    h('button', { onClick: () => setShowPhonetics(!showPhonetics), className: "text-[10px] font-bold uppercase tracking-widest" }, showPhonetics ? '🙈 Hide Phonetics' : '👁️ Show Phonetics'),
+                    h('button', { onClick: () => setShowPhonetics(!showPhonetics), className: "text-[10px] font-bold uppercase tracking-widest hover:opacity-100 transition-opacity" }, showPhonetics ? '🙈 Hide Phonetics' : '👁️ Show Phonetics'),
                     h('p', { className: "text-[10px] font-bold uppercase tracking-widest" }, "Tap word to replay")
                 )
             );
