@@ -1,0 +1,7 @@
+{
+  "name": "Thai Tone Run",
+  "description": "A swiper-style game to master Thai tones by ear. Listen to native-quality pronunciations and identify the correct tone to build your streak.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
