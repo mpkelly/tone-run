@@ -3,32 +3,325 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thai Tone Run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thai Tone Run - Master Tones by Ear</title>
+    
+    <!-- Metadata & Social -->
+    <meta name="description" content="Master the five Thai tones with this fast-paced ear training game.">
+    <meta property="og:title" content="Thai Tone Run">
+    <meta property="og:description" content="Ear training game for Thai learners. Identify all 5 tones by ear!">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#1e5e41">
+
+    <!-- External Assets -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+Thai:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Noto+Sans+Thai:wght@400;700;900&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Inter', 'Noto Sans Thai', sans-serif;
             background-color: #1e5e41;
             margin: 0;
             overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 2s infinite ease-in-out;
+        }
+        @keyframes pulse-subtle {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(0.98); }
+        }
+        .animate-pulse-subtle {
+          animation: pulse-subtle 4s infinite ease-in-out;
         }
     </style>
 <script type="importmap">
 {
   "imports": {
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
+    "react": "https://esm.sh/react@^19.2.3"
   }
 }
 </script>
 </head>
 <body>
     <div id="root"></div>
+
+    <script type="module">
+        import React, { useState, useEffect, useCallback, useRef } from 'https://esm.sh/react@19.2.3';
+        import ReactDOM from 'https://esm.sh/react-dom@19.2.3/client';
+
+        const h = React.createElement;
+        const f = React.Fragment;
+
+        // --- CONSTANTS & TYPES ---
+        const ThaiTone = Object.freeze({
+            Mid: 'Mid',
+            Low: 'Low',
+            Falling: 'Falling',
+            High: 'High',
+            Rising: 'Rising'
+        });
+
+        const THAI_WORDS = [
+            // Numbers
+            { word: 'หนึ่ง', transliteration: 'nueng', tone: ThaiTone.Low, translation: 'one' },
+            { word: 'สอง', transliteration: 'song', tone: ThaiTone.Rising, translation: 'two' },
+            { word: 'สาม', transliteration: 'saam', tone: ThaiTone.Rising, translation: 'three' },
+            { word: 'สี่', transliteration: 'see', tone: ThaiTone.Low, translation: 'four' },
+            { word: 'ห้า', transliteration: 'haa', tone: ThaiTone.Falling, translation: 'five' },
+            { word: 'หก', transliteration: 'hok', tone: ThaiTone.Low, translation: 'six' },
+            { word: 'เจ็ด', transliteration: 'jet', tone: ThaiTone.Low, translation: 'seven' },
+            { word: 'แปด', transliteration: 'paet', tone: ThaiTone.Low, translation: 'eight' },
+            { word: 'เก้า', transliteration: 'gao', tone: ThaiTone.Falling, translation: 'nine' },
+            { word: 'สิบ', transliteration: 'sip', tone: ThaiTone.Low, translation: 'ten' },
+            { word: 'ร้อย', transliteration: 'roi', tone: ThaiTone.High, translation: 'hundred' },
+            // Basic Verbs
+            { word: 'ไป', transliteration: 'pai', tone: ThaiTone.Mid, translation: 'go' },
+            { word: 'มา', transliteration: 'maa', tone: ThaiTone.Mid, translation: 'come' },
+            { word: 'กิน', transliteration: 'gin', tone: ThaiTone.Mid, translation: 'eat' },
+            { word: 'นอน', transliteration: 'norn', tone: ThaiTone.Mid, translation: 'sleep' },
+            { word: 'วิ่ง', transliteration: 'wing', tone: ThaiTone.Falling, translation: 'run' },
+            { word: 'นั่ง', transliteration: 'nang', tone: ThaiTone.Low, translation: 'sit' },
+            { word: 'พูด', transliteration: 'poot', tone: ThaiTone.Falling, translation: 'speak' },
+            { word: 'อ่าน', transliteration: 'aan', tone: ThaiTone.Low, translation: 'read' },
+            { word: 'รัก', transliteration: 'rak', tone: ThaiTone.High, translation: 'love' },
+            { word: 'ชอบ', transliteration: 'chorp', tone: ThaiTone.Falling, translation: 'like' },
+            // Nouns
+            { word: 'บ้าน', transliteration: 'baan', tone: ThaiTone.Falling, translation: 'house' },
+            { word: 'รถ', transliteration: 'rot', tone: ThaiTone.High, translation: 'car' },
+            { word: 'น้ำ', transliteration: 'naam', tone: ThaiTone.High, translation: 'water' },
+            { word: 'ข้าว', transliteration: 'khao', tone: ThaiTone.Falling, translation: 'rice' },
+            { word: 'ไฟ', transliteration: 'fai', tone: ThaiTone.Mid, translation: 'fire' },
+            { word: 'ฟ้า', transliteration: 'faa', tone: ThaiTone.High, translation: 'sky' },
+            { word: 'ตา', transliteration: 'taa', tone: ThaiTone.Mid, translation: 'eye' },
+            { word: 'หู', transliteration: 'hoo', tone: ThaiTone.Rising, translation: 'ear' },
+            { word: 'มือ', transliteration: 'mue', tone: ThaiTone.Mid, translation: 'hand' },
+            { word: 'แก้ว', transliteration: 'gaew', tone: ThaiTone.Falling, translation: 'glass' },
+            // Animals
+            { word: 'แมว', transliteration: 'maew', tone: ThaiTone.Mid, translation: 'cat' },
+            { word: 'หมา', transliteration: 'maa', tone: ThaiTone.Rising, translation: 'dog' },
+            { word: 'นก', transliteration: 'nok', tone: ThaiTone.High, translation: 'bird' },
+            { word: 'ปลา', transliteration: 'plaa', tone: ThaiTone.Mid, translation: 'fish' },
+            { word: 'ไก่', transliteration: 'kai', tone: ThaiTone.Low, translation: 'chicken' },
+            { word: 'หมู', transliteration: 'moo', tone: ThaiTone.Rising, translation: 'pig' },
+            { word: 'ช้าง', transliteration: 'chaang', tone: ThaiTone.High, translation: 'elephant' },
+            // Multi-Syllable
+            { word: 'สวัสดี', syllables: ['สวัส', 'ดี'], targetIndex: 1, transliteration: 'sa-wat-dee', tone: ThaiTone.Mid, translation: 'hello' },
+            { word: 'สวัสดี', syllables: ['สวัส', 'ดี'], targetIndex: 0, transliteration: 'sa-wat-dee', tone: ThaiTone.Low, translation: 'hello (part 1)' },
+            { word: 'ขอบคุณ', syllables: ['ขอบ', 'คุณ'], targetIndex: 0, transliteration: 'khop-khun', tone: ThaiTone.Low, translation: 'thank you' },
+            { word: 'สบายดี', syllables: ['ส', 'บาย', 'ดี'], targetIndex: 1, transliteration: 'sa-baay-dee', tone: ThaiTone.Mid, translation: 'fine' },
+            { word: 'ภูเขา', syllables: ['ภู', 'เขา'], targetIndex: 1, transliteration: 'phu-khao', tone: ThaiTone.Rising, translation: 'mountain' },
+            { word: 'อร่อย', syllables: ['อ', 'ร่อย'], targetIndex: 1, transliteration: 'a-roi', tone: ThaiTone.Low, translation: 'delicious' },
+            // Adjectives
+            { word: 'ดี', transliteration: 'dee', tone: ThaiTone.Mid, translation: 'good' },
+            { word: 'ใหญ่', transliteration: 'yai', tone: ThaiTone.Low, translation: 'big' },
+            { word: 'เล็ก', transliteration: 'lek', tone: ThaiTone.High, translation: 'small' },
+            { word: 'สวย', transliteration: 'suay', tone: ThaiTone.Rising, translation: 'beautiful' },
+            { word: 'ร้อน', transliteration: 'ron', tone: ThaiTone.High, translation: 'hot' },
+            { word: 'หนาว', transliteration: 'naao', tone: ThaiTone.Rising, translation: 'cold' }
+        ];
+
+        // --- SERVICES ---
+        const stopAudio = () => {
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+        };
+
+        const playThaiWord = (text) => {
+            stopAudio();
+            setTimeout(() => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'th-TH';
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            }, 10);
+        };
+
+        // --- COMPONENTS ---
+        const ToneIcon = ({ tone, className = "w-12 h-4" }) => {
+            switch (tone) {
+                case ThaiTone.Mid:
+                    return h('svg', { className, viewBox: "0 0 100 40" },
+                        h('line', { x1: "10", y1: "20", x2: "90", y2: "20", stroke: "currentColor", strokeWidth: "6", strokeLinecap: "round" })
+                    );
+                case ThaiTone.Low:
+                    return h('svg', { className, viewBox: "0 0 100 40" },
+                        h('line', { x1: "10", y1: "30", x2: "90", y2: "30", stroke: "currentColor", strokeWidth: "6", strokeLinecap: "round" })
+                    );
+                case ThaiTone.Falling:
+                    return h('svg', { className, viewBox: "0 0 100 40" },
+                        h('path', { d: "M10 30 Q 50 10, 90 30", fill: "none", stroke: "currentColor", strokeWidth: "6", strokeLinecap: "round" })
+                    );
+                case ThaiTone.High:
+                    return h('svg', { className, viewBox: "0 0 100 40" },
+                        h('line', { x1: "10", y1: "10", x2: "90", y2: "10", stroke: "currentColor", strokeWidth: "6", strokeLinecap: "round" })
+                    );
+                case ThaiTone.Rising:
+                    return h('svg', { className, viewBox: "0 0 100 40" },
+                        h('path', { d: "M10 30 Q 50 50, 90 10", fill: "none", stroke: "currentColor", strokeWidth: "6", strokeLinecap: "round" })
+                    );
+                default: return null;
+            }
+        };
+
+        const ToneButton = ({ tone, onClick, disabled, isSelected, isCorrect }) => {
+            const getBaseStyles = () => {
+                if (isCorrect) return 'bg-green-600 border-green-400 text-white';
+                if (isSelected && !isCorrect) return 'bg-red-600 border-red-400 text-white';
+                return 'bg-[#0f3d2a] border-[#2a6b4f] text-[#facc15]';
+            };
+
+            return h('button', {
+                onClick: () => onClick(tone),
+                disabled: disabled,
+                className: `flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all active:scale-95 w-full aspect-square md:aspect-auto md:h-24 ${getBaseStyles()} ${disabled && !isCorrect && !isSelected ? 'opacity-50 grayscale' : 'hover:brightness-110'}`
+            },
+                h('div', { className: "mb-2" }, h(ToneIcon, { tone, className: "w-8 h-4 md:w-12 md:h-6" })),
+                h('span', { className: "text-[10px] md:text-xs font-bold uppercase tracking-wider" }, tone)
+            );
+        };
+
+        // --- APP LOGIC ---
+        const TIMER_DURATION = 10;
+        const SESSION_TARGET = 10;
+
+        const App = () => {
+            const [hasStarted, setHasStarted] = useState(false);
+            const [showPhonetics, setShowPhonetics] = useState(true);
+            const [gameState, setGameState] = useState({
+                currentWord: null, streak: 0, timeLeft: TIMER_DURATION, status: 'playing',
+                selectedTone: null, sessionCount: 0, correctInSession: 0
+            });
+
+            const timerRef = useRef(null);
+
+            const startNewRound = useCallback((resetSession = false) => {
+                stopAudio();
+                if (gameState.sessionCount >= SESSION_TARGET && !resetSession) {
+                    setGameState(prev => ({ ...prev, status: 'summary' }));
+                    return;
+                }
+                const filtered = resetSession ? THAI_WORDS : THAI_WORDS.filter(w => w.word !== gameState.currentWord?.word);
+                const nextWord = filtered[Math.floor(Math.random() * filtered.length)];
+                setGameState(prev => ({
+                    ...prev, currentWord: nextWord, status: 'playing', timeLeft: TIMER_DURATION,
+                    selectedTone: null, sessionCount: resetSession ? 1 : prev.sessionCount + 1,
+                    correctInSession: resetSession ? 0 : prev.correctInSession
+                }));
+                setTimeout(() => playThaiWord(nextWord.word), 100);
+            }, [gameState.currentWord, gameState.sessionCount]);
+
+            useEffect(() => {
+                if (!hasStarted || gameState.status !== 'playing') return;
+                timerRef.current = setInterval(() => {
+                    setGameState(prev => {
+                        if (prev.timeLeft <= 0.1) {
+                            clearInterval(timerRef.current);
+                            return { ...prev, timeLeft: 0, status: 'timeout' };
+                        }
+                        return { ...prev, timeLeft: prev.timeLeft - 0.1 };
+                    });
+                }, 100);
+                return () => clearInterval(timerRef.current);
+            }, [gameState.status, hasStarted]);
+
+            const handleToneSelect = (tone) => {
+                if (gameState.status !== 'playing') return;
+                if (tone === gameState.currentWord.tone) {
+                    setGameState(prev => ({
+                        ...prev, status: 'correct', selectedTone: tone,
+                        streak: prev.streak + 1, correctInSession: prev.correctInSession + 1
+                    }));
+                    setTimeout(() => startNewRound(), 1000);
+                } else {
+                    setGameState(prev => ({ ...prev, status: 'wrong', selectedTone: tone, streak: 0 }));
+                }
+            };
+
+            const renderThaiWord = () => {
+                if (!gameState.currentWord) return null;
+                const { word, syllables, targetIndex } = gameState.currentWord;
+                if (syllables && syllables.length > 0) {
+                    return h('div', { className: "flex flex-wrap justify-center items-center gap-2 text-7xl md:text-8xl font-black mb-1 drop-shadow-2xl animate-pulse-subtle", lang: "th" },
+                        syllables.map((syl, idx) => h('span', {
+                            key: idx,
+                            className: idx === targetIndex ? 'text-[#facc15] underline decoration-4 underline-offset-8' : 'opacity-20'
+                        }, syl))
+                    );
+                }
+                return h('span', { className: "text-7xl md:text-8xl font-black mb-1 drop-shadow-2xl animate-pulse-subtle text-[#facc15] text-center", lang: "th", style: { fontFamily: "'Noto Sans Thai', sans-serif" } }, word);
+            };
+
+            if (!hasStarted) {
+                return h('div', { className: "flex flex-col h-screen max-w-md mx-auto px-10 items-center justify-center text-white text-center" },
+                    h('div', { className: "mb-12 animate-bounce-slow" },
+                        h('div', { className: "text-7xl mb-4" }, "📢"),
+                        h('h1', { className: "text-5xl font-black italic tracking-tighter uppercase leading-tight" }, "Thai Tone", h('br'), h('span', { className: "text-[#facc15]" }, "Run"))
+                    ),
+                    h('div', { className: "space-y-4 mb-12" }, h('p', { className: "text-lg font-bold opacity-90" }, "10 Questions • 5 Tones")),
+                    h('button', { onClick: () => { setHasStarted(true); startNewRound(true); }, className: "w-full bg-[#facc15] text-[#1e5e41] font-black py-6 rounded-3xl text-2xl uppercase tracking-widest shadow-xl active:scale-95" }, "Train My Ears")
+                );
+            }
+
+            if (gameState.status === 'summary') {
+                const acc = (gameState.correctInSession / SESSION_TARGET) * 100;
+                return h('div', { className: "flex flex-col h-screen max-w-md mx-auto px-10 items-center justify-center text-white text-center" },
+                    h('div', { className: "text-7xl mb-6" }, acc >= 80 ? '🏆' : '💪'),
+                    h('h2', { className: "text-4xl font-black uppercase mb-2" }, "Session Done!"),
+                    h('div', { className: "bg-white/10 rounded-3xl p-8 w-full mb-8" },
+                        h('div', { className: "text-6xl font-black text-[#facc15] mb-2" }, `${gameState.correctInSession}/${SESSION_TARGET}`),
+                        h('div', { className: "text-sm uppercase tracking-widest opacity-50 font-bold" }, `Accuracy: ${acc}%`)
+                    ),
+                    h('button', { onClick: () => startNewRound(true), className: "w-full bg-[#facc15] text-[#1e5e41] font-black py-5 rounded-2xl text-xl uppercase tracking-widest" }, "Play Again")
+                );
+            }
+
+            return h('div', { className: "flex flex-col h-screen max-w-md mx-auto px-6 py-6 select-none text-white overflow-hidden" },
+                h('div', { className: "flex justify-between items-start mb-2" },
+                    h('div', null, h('h1', { className: "text-lg font-black tracking-tighter uppercase italic leading-none mb-1" }, "Thai Tone Run"), h('div', { className: "text-[10px] font-bold uppercase tracking-widest opacity-50" }, `Word ${gameState.sessionCount} of ${SESSION_TARGET}`)),
+                    h('div', { className: "text-right" }, h('div', { className: "text-[10px] font-bold opacity-40 uppercase tracking-widest mb-1" }, "Max Streak"), h('div', { className: "text-3xl font-black text-[#facc15] drop-shadow-md" }, gameState.streak))
+                ),
+                h('div', { className: "flex-1 flex flex-col items-center justify-center relative py-2" },
+                    gameState.currentWord && h('div', { onClick: () => playThaiWord(gameState.currentWord.word), className: "cursor-pointer group flex flex-col items-center w-full active:scale-95 transition-transform" },
+                        renderThaiWord(),
+                        h('div', { className: "flex flex-col items-center gap-1 mt-6 h-12" },
+                            showPhonetics && h('span', { className: "text-xl font-bold text-white/30 uppercase tracking-[0.2em]" }, gameState.currentWord.transliteration),
+                            h('span', { className: "text-lg font-medium text-[#facc15]/80 uppercase tracking-widest italic" }, gameState.currentWord.translation)
+                        ),
+                        h('div', { className: "h-20 flex items-center mt-4" },
+                            gameState.status === 'correct' && h('div', { className: "bg-green-500 text-white px-8 py-3 rounded-full text-lg font-black animate-bounce shadow-xl" }, "CORRECT!"),
+                            (gameState.status === 'wrong' || gameState.status === 'timeout') && h('div', { className: "bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10 text-center" },
+                                h('div', { className: "text-[10px] uppercase tracking-widest opacity-50 mb-1" }, "Correct Tone"),
+                                h('div', { className: "text-3xl font-black text-white uppercase" }, gameState.currentWord.tone)
+                            )
+                        )
+                    )
+                ),
+                h('div', { className: "w-full bg-white/5 h-2 rounded-full mb-8 overflow-hidden" },
+                    h('div', { className: `h-full transition-all duration-100 ease-linear ${gameState.timeLeft < 3 ? 'bg-red-500' : 'bg-[#facc15]'}`, style: { width: `${(gameState.timeLeft / TIMER_DURATION) * 100}%` } })
+                ),
+                h('div', { className: "mb-4" },
+                    (gameState.status === 'playing' || gameState.status === 'correct') ?
+                        h('div', { className: "grid grid-cols-5 gap-2" },
+                            Object.values(ThaiTone).map(t => h(ToneButton, { key: t, tone: t, onClick: handleToneSelect, disabled: gameState.status !== 'playing', isSelected: gameState.selectedTone === t, isCorrect: gameState.status === 'correct' && gameState.selectedTone === t }))
+                        ) : h('button', { onClick: () => startNewRound(), className: "w-full bg-white text-[#1e5e41] font-black py-6 rounded-3xl text-2xl uppercase tracking-widest" }, "Next Challenge")
+                ),
+                h('div', { className: "flex justify-between items-center px-2 mb-2" },
+                    h('button', { onClick: () => setShowPhonetics(!showPhonetics), className: "text-[10px] font-bold uppercase tracking-widest opacity-30" }, showPhonetics ? '🙈 Hide Phonetics' : '👁️ Show Phonetics'),
+                    h('p', { className: "text-[10px] opacity-20 font-bold uppercase tracking-widest" }, "Tap word to replay")
+                )
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(h(React.StrictMode, null, h(App)));
+    </script>
 </body>
 </html>
